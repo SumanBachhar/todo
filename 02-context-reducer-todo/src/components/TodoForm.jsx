@@ -1,15 +1,7 @@
-import { useState } from "react";
 import { useGlbalContext } from "../context/todocontext";
 
 export const TodoForm = () => {
-  const [todo, setTodo] = useState("");
-  const { addTodo } = useGlbalContext();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addTodo(todo);
-    setTodo("");
-  };
+  const { todo, handleSubmit, setTodo, isEditing } = useGlbalContext();
 
   return (
     <>
@@ -23,7 +15,7 @@ export const TodoForm = () => {
           placeholder="Enter a todo"
         />
         <button className=" bg-teal-500 text-white rounded p-1" type="submit">
-          Submit
+          {isEditing ? "Update" : "Submit"}
         </button>
       </form>
     </>
