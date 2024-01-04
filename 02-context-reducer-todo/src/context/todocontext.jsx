@@ -39,6 +39,11 @@ export const TodoProvider = ({ children }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!todo) {
+      return;
+    }
+    console.log(todo);
+
     if (!isEditing) {
       addTodo(todo);
       setTodo("");
@@ -55,6 +60,9 @@ export const TodoProvider = ({ children }) => {
     setTodo(item.text);
     setSelectedTodo(item);
   };
+  const toggleTodo = (todo) => {
+    dispatch({ type: "TOGGLE_TODO", payload: todo.id });
+  };
   return (
     <TodoContext.Provider
       value={{
@@ -67,6 +75,7 @@ export const TodoProvider = ({ children }) => {
         removeTodo,
         updateTodo,
         isEditing,
+        toggleTodo,
       }}
     >
       {children}
