@@ -1,4 +1,7 @@
+import { useGlobalContext } from "../context/context";
+
 export const TodoItem = () => {
+  const { todos, removeTodo, handleEdit } = useGlobalContext();
   return (
     <>
       <div>
@@ -6,8 +9,10 @@ export const TodoItem = () => {
           {todos.map((todo) => {
             return (
               <li key={todo.id}>
-                <p></p>
-                <button></button>
+                <p>{todo.name}</p>
+                <p>{todo.age}</p>
+                <button onClick={() => removeTodo(todo.id)}>Delete</button>
+                <button onClick={() => handleEdit(todo)}>Update</button>
               </li>
             );
           })}
