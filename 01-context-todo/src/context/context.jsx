@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const TodoContext = createContext();
 
@@ -7,5 +7,25 @@ export const useGlobalContext = () => {
 };
 
 export const TodoProvider = ({ children }) => {
-  return <TodoContext.Provider value={{}}>{children}</TodoContext.Provider>;
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState("");
+
+  const addTodo = (text) => {
+    const itemName = {
+      name: text,
+      id: Date.now(),
+    };
+    setTodos([...todos, itemName]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addTodo(newTodo);
+    setNewTodo("");
+  };
+  return (
+    <TodoContext.Provider value={{ todos, handleSubmit, setTodos }}>
+      {children}
+    </TodoContext.Provider>
+  );
 };
